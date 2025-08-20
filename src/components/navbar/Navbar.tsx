@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function Navbar() {
   return (
@@ -26,7 +27,8 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="text-white font-bold bg-sky-500 hover:bg-sky-600 cursor-pointer py-2 px-4 rounded-md">Sign Up</button>
+        <Button>Login</Button>
+        <Button variant="secondary">Sign Up</Button>
       </div>
     </nav>
   );
