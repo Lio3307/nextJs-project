@@ -1,7 +1,15 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import {
+  RegisterLink,
+  LoginLink,
+  LogoutLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
+import { buttonVariants } from "../ui/button";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
   return (
     <nav className="py-5 flex items-center justify-between">
       <div className="flex items-center gap-6">
@@ -26,10 +34,19 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <Button>Login</Button>
-        <Button variant="secondary">Sign Up</Button>
-      </div>
+      {user ? (
+        <div className="flex items-center gap-4">
+          <p>{user.given_name}</p>
+          <LogoutLink className={buttonVariants({variant: "secondary"})}>Log Out</LogoutLink>
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <LoginLink className={buttonVariants()}>Login</LoginLink>
+          <RegisterLink className={buttonVariants({ variant: "secondary" })}>
+            Sign Up
+          </RegisterLink>
+        </div>
+      )}
     </nav>
   );
 }
