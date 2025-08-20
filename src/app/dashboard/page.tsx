@@ -1,14 +1,16 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
-import { redirect } from "next/navigation"
-export default async function Dashboard(){
-    const {getUser} = getKindeServerSession()
-    const user = await getUser()
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
-    if(!user){
-        return redirect('/api/auth/register')
-    }
+export default async function Dashboard() {
+  return (
+    <div>
+        <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-medium">Your Blog Articles</h2>
 
-    return (
-        <p>Dashboard</p>
-    )
+            <Link className={buttonVariants()} href={"/dashboard/create"}>
+                Create Blog
+            </Link>
+        </div>
+    </div>
+  )
 }
