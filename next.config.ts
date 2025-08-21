@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    turbo: {
+      rules: {
+        "*.prisma": ["copy"],
+      },
+    },
+  },
 };
 
 export default nextConfig;
