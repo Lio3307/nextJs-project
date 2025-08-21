@@ -3,6 +3,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { prisma } from "./utils/db";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export type PostDataType = {
     title: string
@@ -36,6 +37,8 @@ export async function handleSubmisson(formData: FormData){
                 authorName: user?.given_name,
             } as PostDataType,
         })
+
+        revalidatePath("/")
 
         return redirect("/dashboard")
     }
